@@ -1,0 +1,25 @@
+{
+  "name": "lease-peace-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:api": "cd apps/api && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "build": "npm run build:web",
+    "build:web": "cd apps/web && npm run build",
+    "test": "npm run test:api && npm run test:web",
+    "test:api": "cd apps/api && pytest",
+    "test:web": "cd apps/web && npm run test",
+    "migrate": "cd apps/api && alembic upgrade head",
+    "migrate:create": "cd apps/api && alembic revision --autogenerate -m",
+    "seed": "cd apps/api && python scripts/seed.py"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
