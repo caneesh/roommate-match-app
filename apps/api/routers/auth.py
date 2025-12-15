@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from database import get_db
 import models
-from auth import get_password_hash, verify_password, create_access_token
+from auth import get_password_hash, verify_password, create_access_token, get_current_active_user
 from services import track_event
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -108,7 +108,3 @@ def verify_token(user: models.User = Depends(get_current_active_user)):
         "name": user.name,
         "role": user.role
     }
-
-
-# Import here to avoid circular dependency
-from auth import get_current_active_user
