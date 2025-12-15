@@ -1,0 +1,25 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function getRiskColor(riskLevel: string) {
+  switch (riskLevel) {
+    case 'low':
+      return 'text-green-600 bg-green-50';
+    case 'medium':
+      return 'text-yellow-600 bg-yellow-50';
+    case 'high':
+      return 'text-red-600 bg-red-50';
+    default:
+      return 'text-gray-600 bg-gray-50';
+  }
+}
+
+export function getScoreColor(score: number) {
+  if (score >= 80) return 'text-green-600';
+  if (score >= 60) return 'text-yellow-600';
+  return 'text-red-600';
+}
